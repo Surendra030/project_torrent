@@ -27,13 +27,7 @@ jobs:
 
     # 4. Download files via torrent
     - name: Download torrent and zip files
-      run: python download_and_zip.py
-
-    # 5. Upload downloaded files to MEGA
-    - name: Upload to MEGA
-      env:
-        M_TOKEN: ${{ secrets.M_TOKEN }}
-      run: python upload_zip_files.py
+      run: python download_filles.py
 
 
     # 5. Upload downloaded files to MEGA
