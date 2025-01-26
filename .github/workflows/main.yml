@@ -1,0 +1,44 @@
+name: Torrent Download and Upload
+
+on:
+  push:
+    paths:
+      - "*.torrent" # Trigger when a .torrent file is added
+  schedule:
+    - cron: "0 0 * * *" # Run daily if needed
+
+jobs:
+  download_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout repository
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # 2. Set up Python
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.12"
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y poppler-utils
+        pip install -r req2.txt
+        pip install --upgrade tenacity
+
+
+    # 4. Download files via torrent
+    - name: Download torrent
+      run: python download_filles.py.py
+
+    # 5. Upload downloaded files to MEGA
+    - name: Upload to MEGA
+      env:
+        M_TOKEN: ${{ secrets.M_TOKEN }}
+      run: python upload_zip_files.py
+
+    # 6. Clean up
+    - name: Clean up
+      run: rm -rf ./downloads
