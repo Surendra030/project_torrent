@@ -1,12 +1,6 @@
 name: Torrent Download and Upload
 
-on:
-  push:
-    paths:
-      - "*.torrent" # Trigger when a .torrent file is added
-  schedule:
-    - cron: "0 0 * * *" # Run daily if needed
-
+on: [push]
 jobs:
   download_and_upload:
     runs-on: ubuntu-latest
