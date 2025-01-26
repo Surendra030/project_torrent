@@ -9,6 +9,8 @@ TORRENT_FILE = "file.torrent"  # Update this to your .torrent file
 DOWNLOAD_DIR = "downloads"  # Directory to store downloaded files
 ZIP_FILE_NAME = "downloads.zip"  # Name of the zip file
 
+os.makedirs(DOWNLOAD_DIR,exist_ok=True)
+
 # Function to check if the internet connection is fast enough (HSIC)
 def check_internet_speed():
     try:
