@@ -4,7 +4,7 @@ import os
 import shutil
 
 TORRENT_FILE = "file.torrent"  # Update to your torrent file's name
-DOWNLOAD_DIR = "downloads"    # Directory to store downloaded files
+DOWNLOAD_DIR = "downloads"     # Directory to store downloaded files
 ZIP_FILE_NAME = "downloads.zip"  # Name of the zip file
 
 
@@ -56,7 +56,11 @@ def zip_downloads():
 
 if __name__ == "__main__":
     download_with_libtorrent()
-    files = os.listdir()
+    files = os.listdir(DOWNLOAD_DIR)
     
-    for file in files:
-        print(file)
+    if files:
+        print("Files downloaded:")
+        for file in files:
+            print(file)
+    else:
+        print("No files found in the download directory.")
