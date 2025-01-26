@@ -1,6 +1,7 @@
 name: Torrent Download and Upload
 
 on: [push]
+
 jobs:
   download_and_upload:
     runs-on: ubuntu-latest
@@ -8,24 +9,32 @@ jobs:
     steps:
     # 1. Checkout repository
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     # 2. Set up Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: "3.12"
-      
+    
+    # 3. Install dependencies
     - name: Install dependencies
       run: |
-        sudo apt-get install -y poppler-utils
+        sudo apt-get update
+        sudo apt-get install -y aria2  # Install aria2
         pip install -r req.txt
         pip install --upgrade tenacity
 
-
     # 4. Download files via torrent
-    - name: Download torrent
-      run: python download_filles.py.py
+    - name: Download torrent and zip files
+      run: python download_and_zip.py
+
+    # 5. Upload downloaded files to MEGA
+    - name: Upload to MEGA
+      env:
+        M_TOKEN: ${{ secrets.M_TOKEN }}
+      run: python upload_zip_files.py
+
 
     # 5. Upload downloaded files to MEGA
     - name: Upload to MEGA
